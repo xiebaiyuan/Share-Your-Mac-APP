@@ -3,8 +3,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![macOS](https://img.shields.io/badge/macOS-10.14+-blue.svg)](https://www.apple.com/macos/)
 [![Shell](https://img.shields.io/badge/Shell-Bash-green.svg)](https://www.gnu.org/software/bash/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success.svg)](https://xiebaiyuan.github.io/Share-Your-Mac-APP/)
 
 A lightweight tool to scan installed applications on macOS and generate a beautiful web interface for visualization and management.
+
+## 🌐 在线演示
+
+立即体验 Share Your Mac APP，无需下载：
+
+**👉 [在线演示](https://xiebaiyuan.github.io/Share-Your-Mac-APP/)**
+
+直接在浏览器中使用所有功能，包括演示数据！
 
 ## 📸 Screenshots
 

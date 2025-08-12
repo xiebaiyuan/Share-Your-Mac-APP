@@ -443,6 +443,18 @@
     </style>
     <!-- 引入WordCloud.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
+    
+    <!-- GitHub Pages 支持 -->
+    <script>
+        // 检测是否在GitHub Pages环境
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const basePath = isGitHubPages ? '/Share-Your-Mac-APP' : '';
+        
+        // 设置基础路径用于资源加载
+        if (isGitHubPages) {
+            console.log('运行在 GitHub Pages 环境');
+        }
+    </script>
 </head>
 <body>
     <!-- 背景粒子效果 -->

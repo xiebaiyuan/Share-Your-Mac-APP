@@ -1,0 +1,54 @@
+title: "Share Your Mac APP"
+description: "一个简单而强大的Mac应用程序扫描与可视化工具"
+baseurl: "/Share-Your-Mac-APP"
+url: "https://xiebaiyuan.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Exclude from processing
+exclude:
+  - .github/
+  - docs/
+  - node_modules/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - CHANGELOG.md
+  - CONTRIBUTING.md
+  - LICENSE
+  - SECURITY.md
+  - package.json
+  - git-commit.sh
+  - scan_apps.sh
+  - start.sh
+  - apps_data.json
+
+# Include files
+include:
+  - _config.yml
+
+# Plugin settings
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO settings
+author:
+  name: "xiebaiyuan"
+  url: "https://github.com/xiebaiyuan"
+
+social:
+  name: xiebaiyuan
+  links:
+    - https://github.com/xiebaiyuan
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name/

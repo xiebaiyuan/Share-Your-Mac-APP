@@ -38,3 +38,15 @@ build/
 *.key
 *.pem
 .env
+
+# Jekyll/GitHub Pages
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+
+# 但是保留GitHub Pages相关文件
+!_config.yml
+!github-pages.html
+!welcome.html
