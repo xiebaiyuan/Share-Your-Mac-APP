@@ -13,13 +13,71 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #00b894 100%);
+            background-attachment: fixed;
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             color: #333;
             line-height: 1.6;
         }
 
-        .container {
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* 背景粒子效果 */
+        .background-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    /* Footer样式 */
+    footer a {
+        transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+        color: rgba(255, 255, 255, 1) !important;
+        transform: translateY(-2px);
+    }        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -29,9 +87,11 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 40px 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header h1 {
@@ -48,21 +108,23 @@
 
         /* 导入区域样式 */
         .drop-zone {
-            border: 2px dashed #dee2e6;
-            border-radius: 12px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
             padding: 60px 40px;
             text-align: center;
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             transition: all 0.3s ease;
             margin-bottom: 40px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .drop-zone.dragover {
             border-color: #007bff;
-            background: rgba(0, 123, 255, 0.05);
+            background: rgba(0, 123, 255, 0.1);
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
         .drop-zone h2 {
@@ -105,6 +167,16 @@
             box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
         }
 
+        .file-input-btn.demo-btn {
+            background: #28a745;
+            margin-left: 15px;
+        }
+
+        .file-input-btn.demo-btn:hover {
+            background: #218838;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
         /* 结果显示区域 */
         .results-container {
             display: none;
@@ -118,13 +190,14 @@
         }
 
         .stat-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
-            border: 1px solid #e9ecef;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .stat-card:hover {
@@ -146,16 +219,17 @@
         }
 
         .controls {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 16px;
             margin-bottom: 30px;
             display: flex;
             gap: 15px;
             align-items: center;
             flex-wrap: wrap;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            border: 1px solid #e9ecef;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .control-group {
@@ -217,13 +291,14 @@
         }
 
         .app-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             border-left: 4px solid #007bff;
-            border: 1px solid #e9ecef;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .app-card:hover {
@@ -258,13 +333,54 @@
 
         /* 词云容器 */
         .wordcloud-container {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
-            border-radius: 12px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             display: none;
-            border: 1px solid #e9ecef;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+        }
+
+        /* 分类统计条形图 */
+        .category-bar {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.02);
+        }
+
+        .category-label {
+            width: 120px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .category-bar-fill {
+            height: 20px;
+            border-radius: 10px;
+            margin: 0 10px;
+            flex: 1;
+            max-width: 300px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .category-count {
+            width: 40px;
+            text-align: right;
+            font-weight: bold;
+            color: #333;
         }
 
         #wordcloud {
@@ -329,10 +445,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
 </head>
 <body>
+    <!-- 背景粒子效果 -->
+    <div class="background-particles" id="particles"></div>
+    
     <div class="container">
         <div class="header">
             <h1>🍎 Mac应用扫描器</h1>
             <p>扫描并展示你的Mac上安装的所有应用程序</p>
+            <div style="margin-top: 15px; padding: 15px; background: rgba(0,123,255,0.1); border-radius: 10px; font-size: 0.9rem;">
+                ✨ <strong>新功能:</strong> 智能分类系统、美化界面设计、多视图展示
+            </div>
         </div>
 
         <!-- 文件导入区域 -->
@@ -345,9 +467,12 @@
                     <button class="file-input-btn" onclick="document.getElementById('fileInput').click()">
                         选择文件
                     </button>
+                    <button class="file-input-btn demo-btn" onclick="loadDemo()">
+                        🎮 加载演示数据
+                    </button>
                 </div>
                 <p style="margin-top: 20px; font-size: 0.9rem;">
-                    💡 使用 <code>scan_apps.sh</code> 脚本生成扫描结果
+                    💡 使用 <code>scan_apps.sh</code> 脚本生成扫描结果，或点击"加载演示数据"体验功能
                 </p>
             </div>
         </div>
@@ -389,6 +514,7 @@
                 <div class="view-toggle">
                     <button class="toggle-btn active" id="listViewBtn">📋 列表视图</button>
                     <button class="toggle-btn" id="cloudViewBtn">☁️ 词云视图</button>
+                    <button class="toggle-btn" id="chartViewBtn">📊 统计视图</button>
                 </div>
             </div>
 
@@ -409,12 +535,257 @@
                     💡 不同颜色代表不同应用分类，字体大小反映应用重要性
                 </div>
             </div>
+
+            <!-- 分类统计图表 -->
+            <div id="category-chart" class="wordcloud-container">
+                <h2>📈 分类统计</h2>
+                <p>展示各个应用分类的数量分布</p>
+                <div id="categoryStats" style="margin: 20px 0;"></div>
+            </div>
         </div>
     </div>
+
+    <!-- 底部版权信息 -->
+    <footer style="text-align: center; padding: 40px 20px; margin-top: 60px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-top: 1px solid rgba(255, 255, 255, 0.2);">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p style="margin: 0 0 10px 0; font-size: 1.1rem; font-weight: 500; color: rgba(255, 255, 255, 0.9);">
+                🍎 Mac应用扫描器
+            </p>
+            <p style="margin: 0 0 15px 0; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7);">
+                一个简单而强大的Mac应用程序扫描与可视化工具
+            </p>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 20px;">
+                <a href="https://github.com/xiebaiyuan/Share-Your-Mac-APP" target="_blank" 
+                   style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease;">
+                    <span>📂</span> GitHub 仓库
+                </a>
+                <span style="color: rgba(255, 255, 255, 0.5);">|</span>
+                <span style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
+                    👨‍💻 作者: <a href="https://github.com/xiebaiyuan" target="_blank" style="color: rgba(255, 255, 255, 0.8); text-decoration: none;">xiebaiyuan</a>
+                </span>
+            </div>
+            <p style="margin: 0; font-size: 0.8rem; color: rgba(255, 255, 255, 0.6);">
+                © 2025 Share-Your-Mac-APP. 基于 MIT 许可证开源
+            </p>
+        </div>
+    </footer>
 
     <script>
         let appsData = null;
         let filteredApps = [];
+
+        // Demo数据 - 基于您的实际应用数据的精选样本
+        const demoData = {
+            "scan_info": {
+                "scan_date": "2025-08-12 19:51:50",
+                "hostname": "Demo-MacBook-Pro",
+                "username": "demo_user",
+                "total_apps": 45
+            },
+            "applications": [
+                {
+                    "name": "Visual Studio Code",
+                    "version": "1.103.0",
+                    "bundle_id": "com.microsoft.VSCode",
+                    "size": "400M",
+                    "install_date": "2025-07-25 20:41:14",
+                    "category": "Development",
+                    "path": "/Applications/Visual Studio Code.app"
+                },
+                {
+                    "name": "Xcode",
+                    "version": "16.0",
+                    "bundle_id": "com.apple.dt.Xcode",
+                    "size": "4.8G",
+                    "install_date": "2024-09-24 16:30:52",
+                    "category": "Development",
+                    "path": "/Applications/Xcode.app"
+                },
+                {
+                    "name": "ChatGPT",
+                    "version": "1.2025.217",
+                    "bundle_id": "com.openai.chat",
+                    "size": "108M",
+                    "install_date": "2025-08-12 11:35:46",
+                    "category": "AI Tools",
+                    "path": "/Applications/ChatGPT.app"
+                },
+                {
+                    "name": "Claude",
+                    "version": "0.9.3",
+                    "bundle_id": "com.anthropic.claudefordesktop",
+                    "size": "266M",
+                    "install_date": "2025-04-30 23:49:11",
+                    "category": "AI Tools",
+                    "path": "/Applications/Claude.app"
+                },
+                {
+                    "name": "Google Chrome",
+                    "version": "137.0.7151.69",
+                    "bundle_id": "com.google.Chrome",
+                    "size": "1.8G",
+                    "install_date": "2024-05-17 02:38:04",
+                    "category": "Browsers",
+                    "path": "/Applications/Google Chrome.app"
+                },
+                {
+                    "name": "Safari",
+                    "version": "18.4",
+                    "bundle_id": "com.apple.Safari",
+                    "size": "0B",
+                    "install_date": "2025-03-27 19:00:33",
+                    "category": "Browsers",
+                    "path": "/Applications/Safari.app"
+                },
+                {
+                    "name": "WeChat",
+                    "version": "4.0.6",
+                    "bundle_id": "com.tencent.xinWeChat",
+                    "size": "1.0G",
+                    "install_date": "2025-07-23 14:12:11",
+                    "category": "Communication",
+                    "path": "/Applications/WeChat.app"
+                },
+                {
+                    "name": "Telegram",
+                    "version": "11.15",
+                    "bundle_id": "ru.keepcoder.Telegram",
+                    "size": "298M",
+                    "install_date": "2025-08-04 10:24:18",
+                    "category": "Communication",
+                    "path": "/Applications/Telegram.app"
+                },
+                {
+                    "name": "Discord",
+                    "version": "0.0.355",
+                    "bundle_id": "com.hnc.Discord",
+                    "size": "431M",
+                    "install_date": "2025-07-28 10:28:46",
+                    "category": "Communication",
+                    "path": "/Applications/Discord.app"
+                },
+                {
+                    "name": "Notion",
+                    "version": "4.17.0",
+                    "bundle_id": "notion.id",
+                    "size": "255M",
+                    "install_date": "2025-08-06 22:23:32",
+                    "category": "Productivity",
+                    "path": "/Applications/Notion.app"
+                },
+                {
+                    "name": "Obsidian",
+                    "version": "1.7.7",
+                    "bundle_id": "md.obsidian",
+                    "size": "271M",
+                    "install_date": "2024-11-17 09:49:33",
+                    "category": "Productivity",
+                    "path": "/Applications/Obsidian.app"
+                },
+                {
+                    "name": "1Password",
+                    "version": "8.11.4",
+                    "bundle_id": "com.1password.1password",
+                    "size": "430M",
+                    "install_date": "2025-08-06 12:04:53",
+                    "category": "Security",
+                    "path": "/Applications/1Password.app"
+                },
+                {
+                    "name": "Docker",
+                    "version": "4.40.0",
+                    "bundle_id": "com.docker.docker",
+                    "size": "1.8G",
+                    "install_date": "2025-03-29 22:28:19",
+                    "category": "Virtualization",
+                    "path": "/Applications/Docker.app"
+                },
+                {
+                    "name": "IINA",
+                    "version": "1.3.5",
+                    "bundle_id": "com.colliderli.iina",
+                    "size": "159M",
+                    "install_date": "2024-05-31 09:19:32",
+                    "category": "Media",
+                    "path": "/Applications/IINA.app"
+                },
+                {
+                    "name": "Raycast",
+                    "version": "1.102.3",
+                    "bundle_id": "com.raycast.macos",
+                    "size": "122M",
+                    "install_date": "2025-07-31 20:08:28",
+                    "category": "Utilities",
+                    "path": "/Applications/Raycast.app"
+                },
+                {
+                    "name": "Microsoft Excel",
+                    "version": "16.73",
+                    "bundle_id": "com.microsoft.Excel",
+                    "size": "2.0G",
+                    "install_date": "2023-05-29 16:06:12",
+                    "category": "Microsoft",
+                    "path": "/Applications/Microsoft Excel.app"
+                },
+                {
+                    "name": "Microsoft Word",
+                    "version": "16.73",
+                    "bundle_id": "com.microsoft.Word",
+                    "size": "2.3G",
+                    "install_date": "2023-05-29 16:06:12",
+                    "category": "Microsoft",
+                    "path": "/Applications/Microsoft Word.app"
+                },
+                {
+                    "name": "Parallels Desktop",
+                    "version": "20.1.3",
+                    "bundle_id": "com.parallels.desktop.console",
+                    "size": "381M",
+                    "install_date": "2024-12-17 06:17:05",
+                    "category": "Virtualization",
+                    "path": "/Applications/Parallels Desktop.app"
+                },
+                {
+                    "name": "Photoshop",
+                    "version": "25.0.0",
+                    "bundle_id": "com.adobe.Photoshop",
+                    "size": "3.2G",
+                    "install_date": "2024-08-15 14:30:20",
+                    "category": "Design",
+                    "path": "/Applications/Adobe Photoshop 2024/Adobe Photoshop 2024.app"
+                },
+                {
+                    "name": "Finder",
+                    "version": "12.7",
+                    "bundle_id": "com.apple.finder",
+                    "size": "8.5M",
+                    "install_date": "2025-03-27 19:00:33",
+                    "category": "System",
+                    "path": "/System/Library/CoreServices/Finder.app"
+                }
+            ]
+        };
+
+        // 加载Demo数据
+        function loadDemo() {
+            appsData = JSON.parse(JSON.stringify(demoData)); // 深拷贝
+            displayResults();
+            
+            // 显示Demo提示
+            setTimeout(() => {
+                const notification = document.createElement('div');
+                notification.innerHTML = `
+                    <div style="position: fixed; top: 20px; right: 20px; background: rgba(40, 167, 69, 0.95); color: white; padding: 15px 20px; border-radius: 10px; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+                        ✅ Demo数据加载成功！您可以体验各种功能
+                    </div>
+                `;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }, 500);
+        }
 
         // DOM元素
         const dropZone = document.getElementById('dropZone');
@@ -425,8 +796,10 @@
         const searchBox = document.getElementById('searchBox');
         const listViewBtn = document.getElementById('listViewBtn');
         const cloudViewBtn = document.getElementById('cloudViewBtn');
+        const chartViewBtn = document.getElementById('chartViewBtn');
         const appsList = document.getElementById('apps-list');
         const wordcloudSection = document.getElementById('wordcloud-section');
+        const categoryChart = document.getElementById('category-chart');
 
         // 文件拖拽处理
         dropZone.addEventListener('dragover', (e) => {
@@ -481,6 +854,9 @@
             resultsSection.style.display = 'block';
             resultsSection.classList.add('fade-in');
 
+            // 重新分类应用
+            reclassifyApps();
+
             // 更新统计信息
             updateStats();
             
@@ -490,6 +866,124 @@
             // 显示应用列表
             filteredApps = appsData.applications;
             displayApps();
+            
+            // 显示分类统计
+            displayCategoryStats();
+        }
+
+        // 重新分类应用，减少Other分类
+        function reclassifyApps() {
+            appsData.applications.forEach(app => {
+                if (app.category === 'Other') {
+                    app.category = getImprovedCategory(app.name, app.bundle_id);
+                }
+            });
+        }
+
+        // 改进的分类逻辑
+        function getImprovedCategory(appName, bundleId) {
+            const name = appName.toLowerCase();
+            const bundle = bundleId ? bundleId.toLowerCase() : '';
+
+            // 开发工具
+            if (name.includes('xcode') || name.includes('code') || name.includes('developer') || 
+                name.includes('cursor') || name.includes('sublime') || name.includes('jetbrains') ||
+                name.includes('deveco') || name.includes('android') || name.includes('studio') ||
+                bundle.includes('developer') || bundle.includes('deveco') || bundle.includes('xcode')) {
+                return 'Development';
+            }
+
+            // 通讯工具
+            if (name.includes('wechat') || name.includes('qq') || name.includes('telegram') || 
+                name.includes('discord') || name.includes('chat') || name.includes('如流') ||
+                bundle.includes('chat') || bundle.includes('tencent') || bundle.includes('telegram')) {
+                return 'Communication';
+            }
+
+            // 媒体工具
+            if (name.includes('music') || name.includes('video') || name.includes('player') || 
+                name.includes('media') || name.includes('iina') || name.includes('elmedia') ||
+                name.includes('handbrake') || name.includes('freetube') || name.includes('wiliwili') ||
+                bundle.includes('music') || bundle.includes('media') || bundle.includes('player')) {
+                return 'Media';
+            }
+
+            // 生产力工具
+            if (name.includes('notion') || name.includes('obsidian') || name.includes('notes') || 
+                name.includes('goodnotes') || name.includes('notability') || name.includes('writer') ||
+                name.includes('paste') || name.includes('copy') || name.includes('clipboard') ||
+                bundle.includes('notion') || bundle.includes('obsidian') || bundle.includes('notes')) {
+                return 'Productivity';
+            }
+
+            // 网络工具
+            if (name.includes('chrome') || name.includes('browser') || name.includes('safari') || 
+                name.includes('firefox') || name.includes('edge') || name.includes('chromium') ||
+                bundle.includes('chrome') || bundle.includes('browser') || bundle.includes('safari')) {
+                return 'Browsers';
+            }
+
+            // 系统工具
+            if (name.includes('cleaner') || name.includes('bartender') || name.includes('alttab') || 
+                name.includes('istat') || name.includes('monitor') || name.includes('system') ||
+                name.includes('settings') || name.includes('control') || name.includes('activity') ||
+                bundle.includes('system') || bundle.includes('monitor') || bundle.includes('stat')) {
+                return 'Utilities';
+            }
+
+            // 安全工具
+            if (name.includes('password') || name.includes('1password') || name.includes('bitwarden') || 
+                name.includes('keychain') || name.includes('security') || name.includes('vpn') ||
+                name.includes('proxy') || name.includes('firewall') || name.includes('little snitch') ||
+                bundle.includes('password') || bundle.includes('security') || bundle.includes('vpn')) {
+                return 'Security';
+            }
+
+            // 图形设计
+            if (name.includes('photoshop') || name.includes('illustrator') || name.includes('design') || 
+                name.includes('sketch') || name.includes('figma') || name.includes('canva') ||
+                bundle.includes('adobe') || bundle.includes('design') || bundle.includes('graphics')) {
+                return 'Design';
+            }
+
+            // 网络工具
+            if (name.includes('charles') || name.includes('proxyman') || name.includes('wireshark') || 
+                name.includes('network') || name.includes('wifi') || name.includes('sniffnet') ||
+                bundle.includes('network') || bundle.includes('proxy') || bundle.includes('charles')) {
+                return 'Network';
+            }
+
+            // 虚拟化
+            if (name.includes('docker') || name.includes('parallels') || name.includes('vmware') || 
+                name.includes('utm') || name.includes('virtual') ||
+                bundle.includes('docker') || bundle.includes('parallels') || bundle.includes('vmware')) {
+                return 'Virtualization';
+            }
+
+            // 云存储
+            if (name.includes('dropbox') || name.includes('drive') || name.includes('cloud') || 
+                name.includes('sync') || name.includes('backup') || name.includes('baidu') ||
+                name.includes('夸克') || name.includes('网盘') ||
+                bundle.includes('cloud') || bundle.includes('sync') || bundle.includes('backup')) {
+                return 'Cloud Storage';
+            }
+
+            // AI工具
+            if (name.includes('chatgpt') || name.includes('claude') || name.includes('ai') || 
+                name.includes('ollama') || name.includes('diffusion') || name.includes('fellou') ||
+                bundle.includes('openai') || bundle.includes('anthropic') || bundle.includes('ai')) {
+                return 'AI Tools';
+            }
+
+            // 游戏
+            if (name.includes('game') || name.includes('play') || name.includes('steam') || 
+                name.includes('epic') || name.includes('ryujinx') || name.includes('playcover') ||
+                bundle.includes('game') || bundle.includes('play') || bundle.includes('steam')) {
+                return 'Games';
+            }
+
+            // 默认返回Other
+            return 'Other';
         }
 
         // 更新统计信息
@@ -550,14 +1044,21 @@
             const colors = {
                 'System': '#6c757d',
                 'Development': '#28a745',
-                'Adobe': '#dc3545',
                 'Microsoft': '#007bff',
                 'Google': '#fd7e14',
-                'Games': '#6f42c1',
+                'Communication': '#17a2b8',
                 'Media': '#e83e8c',
                 'Productivity': '#20c997',
-                'Utilities': '#17a2b8',
-                'Other': '#6c757d'
+                'Browsers': '#6f42c1',
+                'Utilities': '#ffc107',
+                'Security': '#dc3545',
+                'Design': '#e74c3c',
+                'Network': '#3498db',
+                'Virtualization': '#9b59b6',
+                'Cloud Storage': '#1abc9c',
+                'AI Tools': '#f39c12',
+                'Games': '#e91e63',
+                'Other': '#95a5a6'
             };
             return colors[category] || colors['Other'];
         }
@@ -574,6 +1075,49 @@
             });
             
             displayApps();
+            
+            // 如果当前是词云视图，重新生成词云
+            if (wordcloudSection.style.display !== 'none') {
+                setTimeout(() => {
+                    if (isSimpleWordCloud || typeof WordCloud === 'undefined') {
+                        generateSimpleWordCloud();
+                    } else {
+                        generateWordCloud();
+                    }
+                }, 100);
+            }
+        }
+
+        // 显示分类统计
+        function displayCategoryStats() {
+            const categoryStats = document.getElementById('categoryStats');
+            const categories = {};
+            
+            // 统计各分类应用数量
+            appsData.applications.forEach(app => {
+                categories[app.category] = (categories[app.category] || 0) + 1;
+            });
+            
+            // 按数量排序
+            const sortedCategories = Object.entries(categories)
+                .sort((a, b) => b[1] - a[1]);
+            
+            const maxCount = Math.max(...Object.values(categories));
+            
+            categoryStats.innerHTML = sortedCategories.map(([category, count]) => {
+                const percentage = (count / maxCount) * 100;
+                const color = getCategoryColor(category);
+                
+                return `
+                    <div class="category-bar">
+                        <div class="category-label">${category}</div>
+                        <div class="category-bar-fill" style="background-color: ${color}; width: ${percentage}%;">
+                            ${count}
+                        </div>
+                        <div class="category-count">${count}</div>
+                    </div>
+                `;
+            }).join('');
         }
 
         // 事件监听器
@@ -589,16 +1133,26 @@
             switchView('cloud');
         });
 
+        chartViewBtn.addEventListener('click', () => {
+            switchView('chart');
+        });
+
         function switchView(view) {
+            // 重置所有按钮状态
+            listViewBtn.classList.remove('active');
+            cloudViewBtn.classList.remove('active');
+            chartViewBtn.classList.remove('active');
+            
+            // 隐藏所有视图
+            appsList.style.display = 'none';
+            wordcloudSection.style.display = 'none';
+            categoryChart.style.display = 'none';
+            
             if (view === 'list') {
                 listViewBtn.classList.add('active');
-                cloudViewBtn.classList.remove('active');
                 appsList.style.display = 'grid';
-                wordcloudSection.style.display = 'none';
-            } else {
+            } else if (view === 'cloud') {
                 cloudViewBtn.classList.add('active');
-                listViewBtn.classList.remove('active');
-                appsList.style.display = 'none';
                 wordcloudSection.style.display = 'block';
                 
                 // 延迟生成词云，确保容器已显示
@@ -609,6 +1163,9 @@
                         generateWordCloud();
                     }
                 }, 100);
+            } else if (view === 'chart') {
+                chartViewBtn.classList.add('active');
+                categoryChart.style.display = 'block';
             }
         }
 
@@ -637,23 +1194,46 @@
             
             // 准备词云数据 - 使用应用名称和基于分类的权重
             const categoryWeights = {
-                'Development': 1.8,
-                'Adobe': 1.6,
-                'Microsoft': 1.4,
-                'Google': 1.3,
-                'System': 0.8,
-                'Games': 1.2,
-                'Media': 1.1,
+                'Development': 2.0,
+                'AI Tools': 1.9,
+                'Design': 1.8,
+                'Communication': 1.7,
+                'Microsoft': 1.6,
                 'Productivity': 1.5,
-                'Utilities': 1.0,
-                'Other': 1.0
+                'Network': 1.4,
+                'Google': 1.3,
+                'Browsers': 1.2,
+                'Virtualization': 1.2,
+                'Security': 1.1,
+                'Media': 1.1,
+                'Cloud Storage': 1.0,
+                'Utilities': 0.9,
+                'Games': 0.8,
+                'System': 0.7,
+                'Other': 0.6
             };
             
             const wordData = apps.map(app => {
                 const weight = categoryWeights[app.category] || 1.0;
-                // 基础大小 + 随机变化 + 分类权重
-                const size = Math.floor(Math.random() * 30 + 20) * weight;
-                return [app.name, size];
+                // 根据应用重要性和分类调整大小
+                let baseSize = 20;
+                
+                // 重要应用加权
+                const importantApps = ['Xcode', 'Visual Studio Code', 'Chrome', 'Safari', 'ChatGPT', 'WeChat', 'QQ'];
+                if (importantApps.some(important => app.name.includes(important))) {
+                    baseSize += 15;
+                }
+                
+                // 系统应用降权
+                if (app.category === 'System' && !app.name.includes('Xcode')) {
+                    baseSize -= 5;
+                }
+                
+                // 添加随机变化
+                const randomFactor = Math.random() * 20 + 10;
+                const finalSize = Math.floor((baseSize + randomFactor) * weight);
+                
+                return [app.name, Math.max(finalSize, 12)]; // 最小字体大小12
             });
 
             // 清除之前的词云
@@ -685,17 +1265,24 @@
                         if (app) {
                             const colors = {
                                 'Development': '#28a745',
-                                'Adobe': '#dc3545',
+                                'AI Tools': '#f39c12',
+                                'Design': '#e74c3c',
+                                'Communication': '#17a2b8',
                                 'Microsoft': '#007bff',
-                                'Google': '#fd7e14',
-                                'System': '#6c757d',
-                                'Games': '#6f42c1',
-                                'Media': '#e83e8c',
                                 'Productivity': '#20c997',
-                                'Utilities': '#17a2b8',
-                                'Other': '#6c757d'
+                                'Network': '#3498db',
+                                'Google': '#fd7e14',
+                                'Browsers': '#6f42c1',
+                                'Virtualization': '#9b59b6',
+                                'Security': '#dc3545',
+                                'Media': '#e83e8c',
+                                'Cloud Storage': '#1abc9c',
+                                'Utilities': '#ffc107',
+                                'Games': '#e91e63',
+                                'System': '#6c757d',
+                                'Other': '#95a5a6'
                             };
-                            return colors[app.category] || '#6c757d';
+                            return colors[app.category] || '#95a5a6';
                         }
                         // 备用颜色
                         const fallbackColors = ['#007bff', '#28a745', '#dc3545', '#fd7e14', '#6f42c1', '#e83e8c'];
@@ -765,28 +1352,42 @@
                 // 根据分类设置颜色和大小
                 const categoryColors = {
                     'Development': '#28a745',
-                    'Adobe': '#dc3545',
+                    'AI Tools': '#f39c12',
+                    'Design': '#e74c3c',
+                    'Communication': '#17a2b8',
                     'Microsoft': '#007bff',
-                    'Google': '#fd7e14',
-                    'System': '#6c757d',
-                    'Games': '#6f42c1',
-                    'Media': '#e83e8c',
                     'Productivity': '#20c997',
-                    'Utilities': '#17a2b8',
-                    'Other': '#6c757d'
+                    'Network': '#3498db',
+                    'Google': '#fd7e14',
+                    'Browsers': '#6f42c1',
+                    'Virtualization': '#9b59b6',
+                    'Security': '#dc3545',
+                    'Media': '#e83e8c',
+                    'Cloud Storage': '#1abc9c',
+                    'Utilities': '#ffc107',
+                    'Games': '#e91e63',
+                    'System': '#6c757d',
+                    'Other': '#95a5a6'
                 };
                 
                 const categorySizes = {
-                    'Development': 18,
-                    'Adobe': 16,
-                    'Microsoft': 15,
-                    'Google': 14,
-                    'System': 12,
-                    'Games': 13,
-                    'Media': 13,
+                    'Development': 20,
+                    'AI Tools': 19,
+                    'Design': 18,
+                    'Communication': 17,
+                    'Microsoft': 16,
                     'Productivity': 15,
-                    'Utilities': 12,
-                    'Other': 12
+                    'Network': 14,
+                    'Google': 14,
+                    'Browsers': 13,
+                    'Virtualization': 13,
+                    'Security': 12,
+                    'Media': 12,
+                    'Cloud Storage': 11,
+                    'Utilities': 11,
+                    'Games': 10,
+                    'System': 10,
+                    'Other': 9
                 };
                 
                 ctx.fillStyle = categoryColors[app.category] || '#667eea';
@@ -837,7 +1438,48 @@
         // 页面加载完成后检查库
         window.addEventListener('load', () => {
             setTimeout(checkWordCloudLibrary, 1000);
+            createParticles();
         });
+
+        // 创建背景粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                createSingleParticle(particlesContainer, i * 1000);
+            }
+        }
+
+        function createSingleParticle(container, delay = 0) {
+            setTimeout(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小
+                const size = Math.random() * 6 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                // 随机位置
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // 随机动画时长
+                const duration = Math.random() * 15 + 15;
+                particle.style.animationDuration = duration + 's';
+                
+                container.appendChild(particle);
+                
+                // 粒子动画结束后重新创建
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                    createSingleParticle(container);
+                }, duration * 1000);
+                
+            }, delay);
+        }
     </script>
 </body>
 </html>
