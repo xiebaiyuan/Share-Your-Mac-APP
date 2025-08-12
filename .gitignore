@@ -1,2 +1,40 @@
-# 忽略 apps 文件夹
+# 忽略扫描生成的数据文件
 apps_data.json
+
+# 忽略系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 忽略临时文件
+*.tmp
+*.temp
+*.log
+
+# 忽略编辑器文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 忽略备份文件
+*.bak
+*.backup
+
+# 忽略测试数据
+test_data/
+tmp/
+
+# 忽略构建产物
+dist/
+build/
+
+# 忽略密钥文件
+*.key
+*.pem
+.env
