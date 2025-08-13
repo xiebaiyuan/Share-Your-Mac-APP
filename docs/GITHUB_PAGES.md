@@ -30,12 +30,11 @@
 部署完成后，您可以通过以下地址访问：
 
 - **主页**: `https://xiebaiyuan.github.io/Share-Your-Mac-APP/`
-- **应用界面**: `https://xiebaiyuan.github.io/Share-Your-Mac-APP/index.html`
 
 ## 📁 相关文件
 
 - `_config.yml` - Jekyll 配置文件
-- `github-pages.html` - GitHub Pages 专用主页
+- `index.html` - 主应用页面
 - `.github/workflows/pages.yml` - 自动部署工作流
 
 ## 🎯 功能特点

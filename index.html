@@ -342,6 +342,8 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             margin-bottom: 30px;
+            position: relative;
+            min-height: 600px;
         }
 
         /* 分类统计条形图 */
@@ -385,10 +387,92 @@
 
         #wordcloud {
             width: 100%;
-            height: 500px;
+            height: 800px;
             margin: 20px 0;
             border: 1px solid #e0e0e0;
             border-radius: 10px;
+            max-width: 100%;
+        }
+        
+        /* 保存按钮样式 */
+        .save-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .save-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .save-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 下载按钮样式 - 统一按钮风格 */
+        .download-script-btn {
+            background: #20c997;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-left: 15px;
+        }
+        
+        .download-script-btn:hover {
+            background: #1ea085;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(32, 201, 151, 0.3);
+        }
+
+        /* 安全提示样式 */
+        .security-notice {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(32, 201, 151, 0.1) 100%);
+            border: 2px solid rgba(40, 167, 69, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .security-notice h3 {
+            color: #28a745;
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .security-notice p {
+            margin: 8px 0;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .security-notice .highlight {
+            background: rgba(40, 167, 69, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
         }
 
         /* 动画效果 */
@@ -482,9 +566,22 @@
                     <button class="file-input-btn demo-btn" onclick="loadDemo()">
                         🎮 加载演示数据
                     </button>
+                    <button class="download-script-btn" onclick="downloadScanScript()">
+                        📥 下载扫描脚本
+                    </button>
                 </div>
+                
+                <!-- 安全提示 -->
+                <div class="security-notice">
+                    <h3>🛡️ 安全保证</h3>
+                    <p>• <span class="highlight">完全安全</span>：脚本只读取应用信息，不会修改或删除任何文件</p>
+                    <p>• <span class="highlight">无需担心</span>：所有数据都在本地处理，不会上传到任何服务器</p>
+                    <p>• <span class="highlight">开源透明</span>：您可以查看脚本源代码，确保安全可靠</p>
+                    <p>• <span class="highlight">简单易用</span>：下载脚本后在终端中运行，生成的文件直接拖到网页即可</p>
+                </div>
+                
                 <p style="margin-top: 20px; font-size: 0.9rem;">
-                    💡 使用 <code>scan_apps.sh</code> 脚本生成扫描结果，或点击"加载演示数据"体验功能
+                    💡 使用步骤：<span class="highlight">下载脚本</span> → <span class="highlight">终端运行 chmod +x scan_apps.sh && ./scan_apps.sh</span> → <span class="highlight">拖拽生成的文件到网页</span>，或点击"加载演示数据"体验功能
                 </p>
             </div>
         </div>
@@ -535,16 +632,26 @@
 
             <!-- 词云视图 -->
             <div id="wordcloud-section" class="wordcloud-container">
+                <button id="saveWordCloudBtn" class="save-button" onclick="saveWordCloudImage()" style="display: none;">
+                    💾 保存图片
+                </button>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h2>📊 应用词云</h2>
-                    <button id="wordcloudToggle" class="toggle-btn" onclick="toggleWordCloudType()">
-                        切换样式
-                    </button>
+                    <div>
+                        <button id="wordcloudToggle" class="toggle-btn" onclick="toggleWordCloudType()">
+                            切换样式
+                        </button>
+                        <button id="regenerateBtn" class="toggle-btn" onclick="regenerateWordCloud()" style="background: #17a2b8;">
+                            🔄 重新生成
+                        </button>
+                    </div>
                 </div>
                 <p>根据应用名称和分类生成的可视化词云</p>
                 <canvas id="wordcloud"></canvas>
                 <div style="margin-top: 20px; font-size: 0.9rem; color: #666;">
-                    💡 不同颜色代表不同应用分类，字体大小反映应用重要性
+                    💡 不同颜色代表不同应用分类，字体大小反映应用重要性<br>
+                    📸 生成词云后可点击右上角"保存图片"按钮下载高清图片<br>
+                    🎨 支持多种显示样式，可点击"切换样式"或"重新生成"获得不同效果
                 </div>
             </div>
 
@@ -1188,9 +1295,9 @@
             const canvas = document.getElementById('wordcloud');
             const container = canvas.parentElement;
             
-            // 设置canvas尺寸
+            // 设置canvas尺寸 - 扩大显示区域
             canvas.width = container.clientWidth - 80; // 减去padding
-            canvas.height = 500;
+            canvas.height = 700; // 增加高度
             
             const apps = filteredApps.length > 0 ? filteredApps : appsData.applications;
             
@@ -1310,6 +1417,9 @@
                     drawOutOfBound: false,
                     shrinkToFit: true
                 });
+                
+                // 词云生成成功后显示保存按钮
+                document.getElementById('saveWordCloudBtn').style.display = 'block';
             } catch (error) {
                 console.error('词云生成错误:', error);
                 ctx.fillStyle = '#e74c3c';
@@ -1332,9 +1442,9 @@
             const container = canvas.parentElement;
             const ctx = canvas.getContext('2d');
             
-            // 设置canvas尺寸
+            // 设置canvas尺寸 - 扩大显示区域
             canvas.width = container.clientWidth - 80;
-            canvas.height = 500;
+            canvas.height = 700; // 增加高度
             
             const apps = filteredApps.length > 0 ? filteredApps : appsData.applications;
             
@@ -1415,6 +1525,9 @@
                 
                 ctx.fillText(displayName, x, y);
             });
+
+            // 显示保存按钮
+            document.getElementById('saveWordCloudBtn').style.display = 'block';
         }
 
         // 词云类型切换
@@ -1452,6 +1565,286 @@
             setTimeout(checkWordCloudLibrary, 1000);
             createParticles();
         });
+
+        // 下载扫描脚本
+        function downloadScanScript() {
+            const scriptContent = `#!/bin/bash
+
+# Mac App Scanner - 扫描Mac上安装的软件
+# Author: xiebaiyuan
+# Date: 2025年8月13日
+
+# 设置输出文件
+OUTPUT_FILE="$(dirname "$0")/apps_data.json"
+TEMP_FILE="/tmp/mac_apps_temp.txt"
+
+echo "🔍 开始扫描Mac上安装的软件..."
+
+# 获取系统信息
+SCAN_DATE=$(date "+%Y-%m-%d %H:%M:%S")
+HOSTNAME=$(hostname)
+USERNAME=$(whoami)
+
+echo "📱 扫描Applications文件夹..."
+
+# 初始化应用计数
+APP_COUNT=0
+
+# 临时存储应用信息
+echo "[" > "$TEMP_FILE"
+
+# 扫描/Applications目录
+for app in /Applications/*.app; do
+    if [ -d "$app" ]; then
+        APP_NAME=$(basename "$app" .app)
+        
+        # 获取应用信息
+        INFO_PLIST="$app/Contents/Info.plist"
+        
+        if [ -f "$INFO_PLIST" ]; then
+            # 获取版本信息
+            VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$INFO_PLIST" 2>/dev/null || echo "Unknown")
+            BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$INFO_PLIST" 2>/dev/null || echo "Unknown")
+            
+            # 获取文件大小
+            SIZE=$(du -sh "$app" 2>/dev/null | cut -f1 || echo "Unknown")
+            
+            # 获取创建时间
+            INSTALL_DATE=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$app" 2>/dev/null || echo "Unknown")
+            
+            # 生成应用分类（基于Bundle ID的简单分类）
+            CATEGORY="Other"
+            case "$BUNDLE_ID" in
+                com.apple.*) CATEGORY="System" ;;
+                com.microsoft.*) CATEGORY="Microsoft" ;;
+                com.adobe.*) CATEGORY="Adobe" ;;
+                com.google.*) CATEGORY="Google" ;;
+                *developer*|*xcode*|*git*) CATEGORY="Development" ;;
+                *game*|*Games*) CATEGORY="Games" ;;
+                *music*|*audio*|*video*|*media*) CATEGORY="Media" ;;
+                *productivity*|*office*) CATEGORY="Productivity" ;;
+                *utility*|*Utility*) CATEGORY="Utilities" ;;
+            esac
+            
+            # 添加逗号（除了第一个应用）
+            if [ $APP_COUNT -gt 0 ]; then
+                echo "," >> "$TEMP_FILE"
+            fi
+            
+            # 转义JSON字符串中的特殊字符
+            APP_NAME_CLEAN=$(echo "$APP_NAME" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            VERSION_CLEAN=$(echo "$VERSION" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            BUNDLE_ID_CLEAN=$(echo "$BUNDLE_ID" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            SIZE_CLEAN=$(echo "$SIZE" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            INSTALL_DATE_CLEAN=$(echo "$INSTALL_DATE" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            PATH_CLEAN=$(echo "$app" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            
+            # 写入JSON格式的应用信息
+            echo "    {" >> "$TEMP_FILE"
+            echo "      \\"name\\": \\"$APP_NAME_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"version\\": \\"$VERSION_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"bundle_id\\": \\"$BUNDLE_ID_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"size\\": \\"$SIZE_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"install_date\\": \\"$INSTALL_DATE_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"category\\": \\"$CATEGORY\\"," >> "$TEMP_FILE"
+            echo "      \\"path\\": \\"$PATH_CLEAN\\"" >> "$TEMP_FILE"
+            echo -n "    }" >> "$TEMP_FILE"
+            
+            APP_COUNT=$((APP_COUNT + 1))
+            echo "  ✅ 发现: $APP_NAME ($VERSION)"
+        fi
+    fi
+done
+
+# 扫描/System/Applications目录（系统应用）
+echo "🖥️  扫描系统应用..."
+for app in /System/Applications/*.app; do
+    if [ -d "$app" ]; then
+        APP_NAME=$(basename "$app" .app)
+        
+        INFO_PLIST="$app/Contents/Info.plist"
+        
+        if [ -f "$INFO_PLIST" ]; then
+            VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$INFO_PLIST" 2>/dev/null || echo "System")
+            BUNDLE_ID=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$INFO_PLIST" 2>/dev/null || echo "Unknown")
+            SIZE=$(du -sh "$app" 2>/dev/null | cut -f1 || echo "Unknown")
+            INSTALL_DATE=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S" "$app" 2>/dev/null || echo "Unknown")
+            
+            if [ $APP_COUNT -gt 0 ]; then
+                echo "," >> "$TEMP_FILE"
+            fi
+            
+            # 转义JSON字符串中的特殊字符
+            APP_NAME_CLEAN=$(echo "$APP_NAME" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            VERSION_CLEAN=$(echo "$VERSION" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            BUNDLE_ID_CLEAN=$(echo "$BUNDLE_ID" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            SIZE_CLEAN=$(echo "$SIZE" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            INSTALL_DATE_CLEAN=$(echo "$INSTALL_DATE" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            PATH_CLEAN=$(echo "$app" | sed 's/\\\\/\\\\\\\\/g; s/"/\\\\"/g')
+            
+            # 写入JSON格式的应用信息
+            echo "    {" >> "$TEMP_FILE"
+            echo "      \\"name\\": \\"$APP_NAME_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"version\\": \\"$VERSION_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"bundle_id\\": \\"$BUNDLE_ID_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"size\\": \\"$SIZE_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"install_date\\": \\"$INSTALL_DATE_CLEAN\\"," >> "$TEMP_FILE"
+            echo "      \\"category\\": \\"System\\"," >> "$TEMP_FILE"
+            echo "      \\"path\\": \\"$PATH_CLEAN\\"" >> "$TEMP_FILE"
+            echo -n "    }" >> "$TEMP_FILE"
+            
+            APP_COUNT=$((APP_COUNT + 1))
+            echo "  ✅ 发现系统应用: $APP_NAME"
+        fi
+    fi
+done
+
+# 完成临时文件
+echo "" >> "$TEMP_FILE"
+echo "]" >> "$TEMP_FILE"
+
+# 创建最终的JSON文件
+cat > "$OUTPUT_FILE" << EOF
+{
+  "scan_info": {
+    "scan_date": "$SCAN_DATE",
+    "hostname": "$HOSTNAME",
+    "username": "$USERNAME",
+    "total_apps": $APP_COUNT
+  },
+  "applications": 
+EOF
+
+# 追加应用数据
+cat "$TEMP_FILE" >> "$OUTPUT_FILE"
+
+# 完成JSON文件
+echo "}" >> "$OUTPUT_FILE"
+
+# 清理临时文件
+rm -f "$TEMP_FILE"
+
+echo ""
+echo "🎉 扫描完成！"
+echo "📊 总共发现 $APP_COUNT 个应用"
+echo "📄 结果保存到: $OUTPUT_FILE"
+echo ""
+echo "🌐 现在可以打开网页并拖入 apps_data.json 文件查看结果"
+
+# 检查是否需要打开网页
+read -p "是否要在浏览器中打开结果页面？(y/n): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    if [ -f "$(dirname "$0")/index.html" ]; then
+        open "$(dirname "$0")/index.html"
+    else
+        echo "❌ 未找到 index.html 文件"
+    fi
+fi
+`;
+
+            // 创建下载链接
+            const blob = new Blob([scriptContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'scan_apps.sh';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+
+        // 显示下载成功提示
+            showNotification('📥 扫描脚本下载成功！请在终端中运行：chmod +x scan_apps.sh && ./scan_apps.sh', 'success');
+        }
+
+        // 保存词云图片
+        function saveWordCloudImage() {
+            const canvas = document.getElementById('wordcloud');
+            
+            if (!canvas) {
+                showNotification('❌ 未找到词云画布', 'error');
+                return;
+            }
+
+            try {
+                // 创建一个新的canvas用于高质量导出
+                const exportCanvas = document.createElement('canvas');
+                const exportCtx = exportCanvas.getContext('2d');
+                
+                // 设置更高的分辨率
+                const scale = 2; // 2倍分辨率
+                exportCanvas.width = canvas.width * scale;
+                exportCanvas.height = canvas.height * scale;
+                
+                // 设置白色背景
+                exportCtx.fillStyle = '#ffffff';
+                exportCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+                
+                // 缩放并绘制原始canvas内容
+                exportCtx.scale(scale, scale);
+                exportCtx.drawImage(canvas, 0, 0);
+                
+                // 生成文件名
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
+                const filename = `mac-apps-wordcloud-${timestamp}.png`;
+                
+                // 转换为blob并下载
+                exportCanvas.toBlob(function(blob) {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    showNotification(`💾 词云图片已保存为: ${filename}`, 'success');
+                }, 'image/png', 1.0);
+                
+            } catch (error) {
+                console.error('保存图片失败:', error);
+                showNotification('❌ 保存图片失败: ' + error.message, 'error');
+            }
+        }
+
+        // 重新生成词云
+        function regenerateWordCloud() {
+            if (wordcloudSection.style.display !== 'none') {
+                setTimeout(() => {
+                    if (isSimpleWordCloud || typeof WordCloud === 'undefined') {
+                        generateSimpleWordCloud();
+                    } else {
+                        generateWordCloud();
+                    }
+                }, 100);
+                
+                showNotification('🔄 词云已重新生成', 'info');
+            }
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            const colors = {
+                success: 'rgba(40, 167, 69, 0.95)',
+                error: 'rgba(220, 53, 69, 0.95)',
+                info: 'rgba(23, 162, 184, 0.95)',
+                warning: 'rgba(255, 193, 7, 0.95)'
+            };
+            
+            notification.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background: ${colors[type] || colors.info}; color: white; padding: 15px 20px; border-radius: 10px; z-index: 1000; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.2); max-width: 400px; word-break: break-word;">
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
 
         // 创建背景粒子效果
         function createParticles() {
