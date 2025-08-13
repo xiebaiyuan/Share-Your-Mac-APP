@@ -17,7 +17,7 @@ A lightweight tool to scan installed applications on macOS and generate a beauti
 
 ## 📸 Screenshots
 
-![Main Interface](https://via.placeholder.com/800x400/007bff/ffffff?text=Mac+App+Scanner+Interface)
+![Main Interface](demo/image.png)
 
 ## ✨ Features
 
@@ -43,8 +43,8 @@ A lightweight tool to scan installed applications on macOS and generate a beauti
 1. Clone this repository or download the files:
 
 ```bash
-git clone https://github.com/xiebaiyuan/WUKONG_TOOLS.git
-cd WUKONG_TOOLS/mac_app_scanner
+git clone https://github.com/xiebaiyuan/Share-Your-Mac-APP
+cd Share-Your-Mac-APP
 ```
 
 1. Make scripts executable:
@@ -185,7 +185,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions:
 
-1. Check the [Issues](https://github.com/xiebaiyuan/WUKONG_TOOLS/issues) page
+1. Check the [Issues](https://github.com/xiebaiyuan/Share-Your-Mac-APP/issues) page
 2. Create a new issue with:
    - macOS version
    - Browser version
